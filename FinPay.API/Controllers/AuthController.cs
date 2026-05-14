@@ -5,7 +5,7 @@ namespace FinPay.API.Controllers;
 
 public class AuthController : ApiContoller
 {
-    [Route("register")]
+    [HttpPost("register")]
     public IActionResult Register([FromBody] RegisterRequest request)
     {
         return Ok(request);       
