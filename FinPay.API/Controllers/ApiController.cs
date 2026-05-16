@@ -2,8 +2,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FinPay.API.Controllers;
 
-[Route("/api")]
 [ApiController]
+[Route("/api")]
 public class ApiContoller : ControllerBase
 {
     

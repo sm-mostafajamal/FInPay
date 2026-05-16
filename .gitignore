@@ -43,3 +43,5 @@ packages/
 .env.*
 secrets.json
 appsettings.Development.json
+
+.fake
