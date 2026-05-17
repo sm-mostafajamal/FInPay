@@ -4,6 +4,7 @@ namespace FinPay.Application.Features.Authentication.Commands;
 
 public class RegisterValidation : AbstractValidator<RegisterCommand>
 {
+    
     public RegisterValidation()
     {
         RuleFor(x => x.FirstName)

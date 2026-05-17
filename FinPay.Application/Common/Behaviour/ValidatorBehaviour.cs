@@ -5,11 +5,11 @@ using MediatR;
 namespace FinPay.Application.Common.Behaviour;
 
 public class ValidatorBehaviour<TRequest, TResponse>(IValidator<TRequest>? validator = null)
-    : IPipelineBehavior<TRequest, ErrorOr<TResponse>>
-    where TRequest : IRequest<ErrorOr<TResponse>>
-    where TResponse : notnull
+    : IPipelineBehavior<TRequest, TResponse>
+    where TRequest : IRequest<TResponse>
+    where TResponse : IErrorOr
 {
-    public async Task<ErrorOr<TResponse>> Handle(TRequest request, RequestHandlerDelegate<ErrorOr<TResponse>> next, CancellationToken cancellationToken)
+    public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
     {
         if(validator is null) return await next();
 
@@ -22,6 +22,6 @@ public class ValidatorBehaviour<TRequest, TResponse>(IValidator<TRequest>? valid
                 Error.Validation(validationFailure.PropertyName, validationFailure.ErrorMessage)
             );
         
-        return errors;
+        return (dynamic) errors;
     }
 }

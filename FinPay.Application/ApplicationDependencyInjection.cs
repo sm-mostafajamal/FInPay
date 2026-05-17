@@ -1,3 +1,4 @@
+using System.Reflection;
 using FinPay.Application.Common.Behaviour;
 using FluentValidation;
 using MediatR;
@@ -9,8 +10,12 @@ public static class ApplicationDependencyInjection
 {
     public static IServiceCollection AddApplication(this IServiceCollection services)
     {
-        services.AddMediatR(typeof(ApplicationDependencyInjection).Assembly);
-        services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidatorBehaviour<,>));
+        services.AddMediatR(cfg =>
+        {
+            cfg.RegisterServicesFromAssembly(typeof(ApplicationDependencyInjection).Assembly);
+            cfg.AddOpenBehavior(typeof(ValidatorBehaviour<,>));
+        });
+
         services.AddValidatorsFromAssembly(typeof(ApplicationDependencyInjection).Assembly);
         
         return services;

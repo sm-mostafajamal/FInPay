@@ -6,17 +6,18 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FinPay.API.Controllers;
 
-public class AuthController(IMapper mapper, ISender sender) : ApiContoller
+public class AuthController(IMapper mapper, ISender sender) : ApiController
 {
     [HttpPost("register")]
-    public async Task<IActionResult> Register([FromBody] RegisterRequest request)
+    public async Task<IActionResult> Register([FromBody] RegisterRequest request, CancellationToken cancellationToken)
     {
         var command = mapper.Map<RegisterCommand>(request);
-        var result = await sender.Send(command);
-        // return Ok(result);
-            return result.Match(
-        authResponse => Ok(result.Value),
-        errors => Problem(errors.First().Description)
-    );
+        var result = await sender.Send(command, cancellationToken);
+        
+        
+        return result.Match(
+            authResponse => Ok(result.Value),
+            errors => Problem(errors.First().Description)
+        );
     }
 }
