@@ -1,3 +1,4 @@
+using ErrorOr;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FinPay.API.Controllers;
@@ -6,5 +7,9 @@ namespace FinPay.API.Controllers;
 [ApiController]
 public class ApiController : ControllerBase
 {
-    
+    [Route("exception")]
+    public IActionResult Problem(List<Error> errors)
+    {
+        return Ok(errors);
+    }
 }

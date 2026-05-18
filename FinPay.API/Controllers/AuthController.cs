@@ -16,8 +16,8 @@ public class AuthController(IMapper mapper, ISender sender) : ApiController
         
         
         return result.Match(
-            authResponse => Ok(result.Value),
-            errors => Problem(errors.First().Description)
+            result => Ok(mapper.Map<AuthResponse>(result)),
+            errors => Problem(errors)
         );
     }
 }
