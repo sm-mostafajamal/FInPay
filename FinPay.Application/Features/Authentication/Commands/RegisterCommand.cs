@@ -1,6 +1,6 @@
 using ErrorOr;
-using FinPay.Application.Authentication;
-using FinPay.Application.Interfaces.Repositories;
+using FinPay.Application.Common.Interfaces.Persistence.Repositories;
+using FinPay.Application.Common.Models;
 using FinPay.Domain.Entities;
 using FinPay.Domain.Errors;
 using MediatR;
@@ -13,12 +13,12 @@ public record RegisterCommand(
     string Email,
     string Password,
     string ConfirmPassword
-) : IRequest<ErrorOr<AuthenticationResponse>>;
+) : IRequest<ErrorOr<AuthenticationResponseDto>>;
 
 public class RegisterCommandHandler(IUserRepository userRepository) 
-    : IRequestHandler<RegisterCommand, ErrorOr<AuthenticationResponse>>
+    : IRequestHandler<RegisterCommand, ErrorOr<AuthenticationResponseDto>>
 {
-    public async Task<ErrorOr<AuthenticationResponse>> Handle(RegisterCommand command, CancellationToken cancellationToken)
+    public async Task<ErrorOr<AuthenticationResponseDto>> Handle(RegisterCommand command, CancellationToken cancellationToken)
     {
         await Task.CompletedTask;
         
@@ -40,6 +40,6 @@ public class RegisterCommandHandler(IUserRepository userRepository)
 
         userRepository.AddUser(newUser, cancellationToken);
 
-        return new AuthenticationResponse(newUser.FirstName, newUser.LastName, newUser.Email);
+        return new AuthenticationResponseDto(newUser.FirstName, newUser.LastName, newUser.Email);
     }
 }

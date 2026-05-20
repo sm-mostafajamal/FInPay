@@ -1,7 +1,7 @@
-using FinPay.Application.Interfaces.Repositories;
+using FinPay.Application.Common.Interfaces.Persistence.Repositories;
 using FinPay.Domain.Entities;
 
-namespace FinPay.Infrastructure.Repositories;
+namespace FinPay.Infrastructure.Persistence.Repositories;
 
 public class UserRepository : IUserRepository
 {

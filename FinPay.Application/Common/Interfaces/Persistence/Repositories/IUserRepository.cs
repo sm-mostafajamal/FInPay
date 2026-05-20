@@ -1,6 +1,6 @@
 using FinPay.Domain.Entities;
 
-namespace FinPay.Application.Interfaces.Repositories;
+namespace FinPay.Application.Common.Interfaces.Persistence.Repositories;
 
 public interface IUserRepository
 {

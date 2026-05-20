@@ -13,7 +13,7 @@ public static class ApplicationDependencyInjection
         services.AddMediatR(cfg =>
         {
             cfg.RegisterServicesFromAssembly(typeof(ApplicationDependencyInjection).Assembly);
-            cfg.AddOpenBehavior(typeof(ValidatorBehaviour<,>));
+            cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(ValidatorBehaviour<,>));
         });
 
         services.AddValidatorsFromAssembly(typeof(ApplicationDependencyInjection).Assembly);
