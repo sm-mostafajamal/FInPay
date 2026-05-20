@@ -13,5 +13,6 @@ var app = builder.Build();
 app.MapControllers();
 app.UseHttpsRedirection();
 app.UseExceptionHandler("/api/exception");
+app.UseAuthentication();
 
 app.Run();

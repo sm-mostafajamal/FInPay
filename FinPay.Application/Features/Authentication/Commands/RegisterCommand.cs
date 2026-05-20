@@ -1,5 +1,6 @@
 using ErrorOr;
 using FinPay.Application.Common.Interfaces.Persistence.Repositories;
+using FinPay.Application.Common.Interfaces.Services;
 using FinPay.Application.Common.Models;
 using FinPay.Domain.Entities;
 using FinPay.Domain.Errors;
@@ -10,13 +11,16 @@ namespace FinPay.Application.Features.Authentication.Commands;
 public record RegisterCommand(
     string FirstName,
     string LastName,
+    string PhoneNumber,
     string Email,
     string Password,
     string ConfirmPassword
 ) : IRequest<ErrorOr<AuthenticationResponseDto>>;
 
-public class RegisterCommandHandler(IUserRepository userRepository) 
-    : IRequestHandler<RegisterCommand, ErrorOr<AuthenticationResponseDto>>
+public class RegisterCommandHandler(
+    IUserRepository userRepository,
+    IJwtTokenService jwtTokenService        
+) : IRequestHandler<RegisterCommand, ErrorOr<AuthenticationResponseDto>>
 {
     public async Task<ErrorOr<AuthenticationResponseDto>> Handle(RegisterCommand command, CancellationToken cancellationToken)
     {
@@ -34,12 +38,14 @@ public class RegisterCommandHandler(IUserRepository userRepository)
             users.Count() + 1,
             command.FirstName,
             command.LastName,
+            command.PhoneNumber,
             command.Email,
             command.Password
         );
 
         userRepository.AddUser(newUser, cancellationToken);
+        var token = jwtTokenService.GenerateToken(newUser);
 
-        return new AuthenticationResponseDto(newUser.FirstName, newUser.LastName, newUser.Email);
+        return new AuthenticationResponseDto(newUser.FirstName, newUser.LastName, newUser.Email, token);
     }
 }
