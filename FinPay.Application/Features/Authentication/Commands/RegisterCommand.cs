@@ -33,7 +33,6 @@ public class RegisterCommandHandler(
             return Errors.Users.DuplicateUser;
         }
 
-
         User newUser = new User (
             users.Count() + 1,
             command.FirstName,
@@ -44,7 +43,7 @@ public class RegisterCommandHandler(
         );
 
         userRepository.AddUser(newUser, cancellationToken);
-        var token = jwtTokenService.GenerateToken(newUser);
+        var token = jwtTokenService.GenerateToken(newUser, cancellationToken);
 
         return new AuthenticationResponseDto(newUser.FirstName, newUser.LastName, newUser.Email, token);
     }

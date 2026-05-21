@@ -33,9 +33,13 @@ public class ApiController : ControllerBase
     {
         var statusCode = error.Type switch
         {
-            ErrorType.Failure => StatusCodes.Status400BadRequest,
-            ErrorType.Validation => StatusCodes.Status400BadRequest,
-            _ => StatusCodes.Status500InternalServerError
+            ErrorType.Validation    => StatusCodes.Status400BadRequest,
+            ErrorType.Unauthorized  => StatusCodes.Status401Unauthorized,
+            ErrorType.Forbidden     => StatusCodes.Status403Forbidden,
+            ErrorType.NotFound      => StatusCodes.Status404NotFound,
+            ErrorType.Conflict      => StatusCodes.Status409Conflict,
+            ErrorType.Failure       => StatusCodes.Status500InternalServerError,
+            _                       => StatusCodes.Status500InternalServerError,
         };
 
         return Problem(statusCode: statusCode, title: error.Description);

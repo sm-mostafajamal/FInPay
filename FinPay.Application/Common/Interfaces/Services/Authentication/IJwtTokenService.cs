@@ -4,5 +4,5 @@ namespace FinPay.Application.Common.Interfaces.Services;
 
 public interface IJwtTokenService
 {
-    public string GenerateToken(User user);
+    public string GenerateToken(User user, CancellationToken cancellationToken);
 }

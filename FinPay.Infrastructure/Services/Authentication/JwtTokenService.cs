@@ -13,7 +13,7 @@ namespace FinPay.Infrastructure.Services.Authentication;
 public class JwtTokenService(IOptions<JwtSetting> jwtSetting) : IJwtTokenService
 {
     private readonly JwtSetting _jwtSetting = jwtSetting.Value;
-    public string GenerateToken(User user)
+    public string GenerateToken(User user, CancellationToken cancellationToken)
     {
         var symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSetting.SecretKey));
         var signingCredentials = new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha256);
