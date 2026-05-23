@@ -1,4 +1,5 @@
 using ErrorOr;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
@@ -6,6 +7,7 @@ namespace FinPay.API.Controllers;
 
 [Route("api")]
 [ApiController]
+[Authorize]
 public class ApiController : ControllerBase
 {
     [Route("problem")]
