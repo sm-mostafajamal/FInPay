@@ -24,25 +24,18 @@ public class RegisterCommandHandler(
 {
     public async Task<ErrorOr<AuthenticationResponseDto>> Handle(RegisterCommand command, CancellationToken cancellationToken)
     {
-        await Task.CompletedTask;
-        
-        var users = userRepository.GetUsers(cancellationToken);
-
-        if(userRepository.GetUserByEmail(command.Email, cancellationToken) is User user)
+        if(await userRepository.GetUserByEmail(command.Email, cancellationToken) is User user)
         {
             return Errors.Users.DuplicateUser;
         }
 
-        User newUser = new User (
-            users.Count() + 1,
+        var newUser = await userRepository.AddUserAsync(new User (
             command.FirstName,
             command.LastName,
             command.PhoneNumber,
             command.Email,
             command.Password
-        );
-
-        userRepository.AddUser(newUser, cancellationToken);
+        ), cancellationToken);
         var token = jwtTokenService.GenerateToken(newUser, cancellationToken);
 
         return new AuthenticationResponseDto(newUser.FirstName, newUser.LastName, newUser.Email, token);

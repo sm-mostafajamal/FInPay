@@ -23,7 +23,6 @@ public class JwtTokenService(IOptions<JwtSetting> jwtSetting) : IJwtTokenService
             new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
             new Claim(JwtRegisteredClaimNames.Email, user.Email.ToString()),
             new Claim(JwtRegisteredClaimNames.Name, user.FirstName.ToString()),
-            new Claim(JwtRegisteredClaimNames.PhoneNumber, user.PhoneNumber.ToString()),
             new Claim(JwtRegisteredClaimNames.Iss, _jwtSetting.Issuer.ToString()),
             new Claim(JwtRegisteredClaimNames.Aud, _jwtSetting.Audience.ToString()),
             new Claim(JwtRegisteredClaimNames.Exp, _jwtSetting.Expire.ToString()),

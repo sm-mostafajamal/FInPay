@@ -1,7 +1,0 @@
-<Solution>
-  <Project Path="FinPay.API/FinPay.API.csproj" />
-  <Project Path="FinPay.Application/FinPay.Application.csproj" />
-  <Project Path="FinPay.Contracts/FinPay.Contracts.csproj" />
-  <Project Path="FinPay.Domain/FinPay.Domain.csproj" />
-  <Project Path="FinPay.Infrastructure/FinPay.Infrastructure.csproj" />
-</Solution>

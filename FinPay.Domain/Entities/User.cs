@@ -9,9 +9,8 @@ public class User
     public string Email {get; set;}
     public string Password {get; set;}
 
-    public User(int Id, string FirstName, string PhoneNumber, string LastName, string Email, string Password)
+    public User(string FirstName, string LastName, string PhoneNumber, string Email, string Password)
     {
-        this.Id = Id;
         this.FirstName = FirstName;
         this.LastName = LastName;
         this.PhoneNumber = PhoneNumber;

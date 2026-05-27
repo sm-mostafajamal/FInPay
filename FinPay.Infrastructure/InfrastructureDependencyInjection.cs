@@ -1,23 +1,32 @@
 using System.Text;
 using FinPay.Application.Common.Interfaces.Persistence.Repositories;
 using FinPay.Application.Common.Interfaces.Services;
+using FinPay.Infrastructure.Persistence;
 using FinPay.Infrastructure.Persistence.Repositories;
 using FinPay.Infrastructure.Services.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 
 namespace FinPay.Infrastructure;
 
-
 public static class InfrastructureDependencyInjection
 {
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, ConfigurationManager configuration)
     {
         services.AddAuth(configuration);
-        // services.AddScoped<IUserRepository, UserRepository>();
-        services.AddSingleton<IUserRepository, UserRepository>();
+        services.AddScoped<IUserRepository, UserRepository>();
+
+        services.AddDbContext<FinPayDbContext>(options => {
+            var connectionString = configuration.GetConnectionString("DefaultConnection");
+            options.UseMySql(
+                connectionString, 
+                // ServerVersion.AutoDetect(connectionString)
+                new MySqlServerVersion(new Version(8, 0, 0))
+            );
+        });
 
         return services;
     }

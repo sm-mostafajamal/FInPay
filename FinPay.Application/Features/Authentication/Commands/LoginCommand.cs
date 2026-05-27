@@ -21,7 +21,7 @@ public class LoginCommandHandler(IUserRepository userRepository, IJwtTokenServic
     {
         await Task.CompletedTask;
 
-        if(userRepository.GetUserByEmail(command.Email, cancellationToken) is not User user)
+        if(await userRepository.GetUserByEmail(command.Email, cancellationToken) is not User user)
         {
             return Errors.Users.UserNotFound;
         }

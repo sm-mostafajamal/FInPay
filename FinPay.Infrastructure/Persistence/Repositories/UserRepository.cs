@@ -1,24 +1,32 @@
 using FinPay.Application.Common.Interfaces.Persistence.Repositories;
 using FinPay.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace FinPay.Infrastructure.Persistence.Repositories;
 
-public class UserRepository : IUserRepository
+public class UserRepository(FinPayDbContext context) : IUserRepository
 {
-    private readonly List<User> users = new();
-
-    public User AddUser(User user, CancellationToken cancellationToken)
+    private readonly FinPayDbContext _context = context;
+    
+    public async Task<User> AddUserAsync(User user, CancellationToken cancellationToken)
     {
-        users.Add(user);
-
+        await _context.Users.AddAsync(user, cancellationToken);
+        await _context.SaveChangesAsync();
+        
         return user;
     }
-    public List<User> GetUsers(CancellationToken cancellationToken)
+    
+    public async Task<User?> GetUserByEmail(string email, CancellationToken cancellationToken)
     {
-        return users;
+        var user = await _context.Users
+                                .AsNoTracking()
+                                .FirstOrDefaultAsync(x => x.Email == email);
+        return user;
     }
-    public User? GetUserByEmail(string email, CancellationToken cancellationToken)
-    {
-        return users.FirstOrDefault(user => user.Email == email);
-    }
+    
+    // public List<User> GetUsers(CancellationToken cancellationToken)
+    // {
+    //     return users;
+    // }
+    
 }
