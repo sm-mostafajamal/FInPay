@@ -36,6 +36,6 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
 
         builder.Property(x => x.Password)
                .HasColumnName("password")
-               .HasColumnType("varchar(30)");
+               .HasColumnType("varchar(255)");
     }
 }

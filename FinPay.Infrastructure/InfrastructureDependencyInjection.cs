@@ -1,6 +1,7 @@
 using System.Text;
 using FinPay.Application.Common.Interfaces.Persistence.Repositories;
 using FinPay.Application.Common.Interfaces.Services;
+using FinPay.Application.Common.Interfaces.Services.Authentication;
 using FinPay.Infrastructure.Persistence;
 using FinPay.Infrastructure.Persistence.Repositories;
 using FinPay.Infrastructure.Services.Authentication;
@@ -18,6 +19,7 @@ public static class InfrastructureDependencyInjection
     {
         services.AddAuth(configuration);
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IPasswordHasherService, PasswordHasherService>();
 
         services.AddDbContext<FinPayDbContext>(options => {
             var connectionString = configuration.GetConnectionString("DefaultConnection");

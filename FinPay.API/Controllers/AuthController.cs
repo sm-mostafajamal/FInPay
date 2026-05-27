@@ -7,9 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FinPay.API.Controllers;
 
+[AllowAnonymous]
 public class AuthController(IMapper mapper, ISender sender) : ApiController
 {
-    [AllowAnonymous]
     [HttpPost("register")]
     public async Task<IActionResult> Register([FromBody] RegisterRequest request, CancellationToken cancellationToken)
     {
@@ -22,7 +22,7 @@ public class AuthController(IMapper mapper, ISender sender) : ApiController
         );
     }
 
-    [Route("login")]
+    [HttpPost("login")]
     public async Task<IActionResult> Login([FromBody] LoginRequest request, CancellationToken cancellationToken)
     {
         var command = mapper.Map<LoginCommand>(request);

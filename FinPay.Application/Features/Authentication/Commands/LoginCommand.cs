@@ -1,6 +1,7 @@
 using ErrorOr;
 using FinPay.Application.Common.Interfaces.Persistence.Repositories;
 using FinPay.Application.Common.Interfaces.Services;
+using FinPay.Application.Common.Interfaces.Services.Authentication;
 using FinPay.Application.Common.Models;
 using FinPay.Domain.Entities;
 using FinPay.Domain.Errors;
@@ -14,19 +15,24 @@ public record LoginCommand(
 ): IRequest<ErrorOr<AuthenticationResponseDto>>;
 
 
-public class LoginCommandHandler(IUserRepository userRepository, IJwtTokenService jwtTokenService) 
+public class LoginCommandHandler(
+    IUserRepository userRepository, 
+    IJwtTokenService jwtTokenService,
+    IPasswordHasherService passwordHasherService
+) 
     : IRequestHandler<LoginCommand, ErrorOr<AuthenticationResponseDto>>
 {
     public async Task<ErrorOr<AuthenticationResponseDto>> Handle(LoginCommand command, CancellationToken cancellationToken)
     {
-        await Task.CompletedTask;
-
-        if(await userRepository.GetUserByEmail(command.Email, cancellationToken) is not User user)
+        var dummyHash = "$2a$12$dummyHashToPreventTimingAttackOnLogin";
+        var user = await userRepository.GetUserByEmail(command.Email, cancellationToken);
+        
+        if(user is not User || !passwordHasherService.VerifyPassword(user?.Password ?? dummyHash, command.Password))
         {
-            return Errors.Users.UserNotFound;
+            return Errors.Users.InvalidUserCredential;
         }
 
-        var token = jwtTokenService.GenerateToken(user, cancellationToken); 
+        var token = jwtTokenService.GenerateToken(user); 
 
         return new AuthenticationResponseDto(user.FirstName, user.LastName, user.Email, token);
 
