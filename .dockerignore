@@ -1,0 +1,11 @@
+.git
+.gitignore
+
+**/bin
+**/obj
+
+.vscode
+.idea
+
+Dockerfile
+README.md

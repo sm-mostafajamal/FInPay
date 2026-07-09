@@ -23,10 +23,8 @@ public static class InfrastructureDependencyInjection
 
         services.AddDbContext<FinAppDbContext>(options => {
             var connectionString = configuration.GetConnectionString("DefaultConnection");
-            options.UseMySql(
-                connectionString, 
-                // ServerVersion.AutoDetect(connectionString)
-                new MySqlServerVersion(new Version(8, 0, 0))
+            options.UseNpgsql(
+                connectionString
             );
         });
 
@@ -59,4 +57,5 @@ public static class InfrastructureDependencyInjection
 
         return services;
     }
+    
 }
