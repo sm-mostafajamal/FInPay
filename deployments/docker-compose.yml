@@ -4,7 +4,7 @@ services:
     container_name: mysql
     environment:
       MYSQL_ROOT_PASSWORD: 1234
-      MYSQL_DATABASE: finpay
+      MYSQL_DATABASE: finapp
     ports:
       - "3306:3306"
     volumes:

@@ -1,6 +1,0 @@
-namespace FinPay.Contracts.Authentication;
-
-public record LoginRequest(
-    string email,
-    string password
-);
