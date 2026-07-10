@@ -16,6 +16,7 @@ app.UseHttpsRedirection();
 app.UseExceptionHandler("/api/exception");
 app.UseAuthentication();
 app.UseAuthorization();
+
 await app.Services.SuperAdminSeedAsync();
 
 app.Run();

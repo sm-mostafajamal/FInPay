@@ -27,4 +27,4 @@ services:
 
 volumes:
   postgres_data:
-
+    name: finapp_postgres_data

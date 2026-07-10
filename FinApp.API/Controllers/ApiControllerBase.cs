@@ -1,4 +1,6 @@
 using ErrorOr;
+using FinApp.Contracts.Authentication;
+using MapsterMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -8,7 +10,7 @@ namespace FinApp.API.Controllers;
 [Route("api")]
 [ApiController]
 [Authorize]
-public class ApiController : ControllerBase
+public class ApiControllerBase : ControllerBase
 {
     [Route("problem")]
     public IActionResult Problem(List<Error> errors)
@@ -45,5 +47,13 @@ public class ApiController : ControllerBase
         };
 
         return Problem(statusCode: statusCode, title: error.Description);
+    }
+
+    protected IActionResult HandleResult<T, TResponse>(ErrorOr<T> result, Func<T, TResponse> map)
+    {
+        return result.Match(
+            result => Ok(map(result)),
+            errors => Problem(errors)
+        );  
     }
 }

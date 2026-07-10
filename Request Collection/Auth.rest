@@ -8,6 +8,7 @@ Content-Type: application/json
     "password" : "Nop@ss1234"
 }  
 
+### Register User
 
 POST {{base_url}}/api/register
 Content-Type: application/json

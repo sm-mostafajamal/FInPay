@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FinApp.API.Controllers;
 
-public class ErrorControllers : ApiController
+public class ErrorControllers : ApiControllerBase
 {
     [Route("exception")]
     public IActionResult Error()
