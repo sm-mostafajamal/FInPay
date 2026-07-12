@@ -2,8 +2,8 @@ services:
   finapp-api:
     container_name: finapp-api
     build:
-      context: ..
-      dockerfile: deployments/Dockerfile
+      context: ../src/backend
+      dockerfile: ../../docker/Dockerfile
     ports:
       - "8080:8080"
     environment:
