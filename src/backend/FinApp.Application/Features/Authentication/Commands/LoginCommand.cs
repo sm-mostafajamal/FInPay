@@ -1,8 +1,8 @@
 using ErrorOr;
+using FinApp.Application.Authentication.Dtos;
 using FinApp.Application.Common.Interfaces.Persistence.Repositories;
 using FinApp.Application.Common.Interfaces.Services;
 using FinApp.Application.Common.Interfaces.Services.Authentication;
-using FinApp.Application.Common.Models;
 using FinApp.Domain.Entities;
 using FinApp.Domain.Errors;
 using MediatR;

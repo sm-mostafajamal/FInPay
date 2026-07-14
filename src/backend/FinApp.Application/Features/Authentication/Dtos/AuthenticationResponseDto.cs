@@ -1,4 +1,4 @@
-namespace FinApp.Application.Common.Models;
+namespace FinApp.Application.Authentication.Dtos;
 
 public record AuthenticationResponseDto(
     string first_name,

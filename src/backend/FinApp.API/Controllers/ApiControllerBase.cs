@@ -49,7 +49,7 @@ public class ApiControllerBase : ControllerBase
         return Problem(statusCode: statusCode, title: error.Description);
     }
 
-    protected IActionResult HandleResult<T, TResponse>(ErrorOr<T> result, Func<T, TResponse> map)
+    protected IActionResult ToActionResult<T, TResponse>(ErrorOr<T> result, Func<T, TResponse> map)
     {
         return result.Match(
             result => Ok(map(result)),

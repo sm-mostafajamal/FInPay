@@ -1,0 +1,13 @@
+@base_url = http://localhost:8080
+@jwt = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZW1haWwiOiJzdXBlci5hZG1pbkBmaW5hcHAuY29tIiwibmFtZSI6InN1cGVyIiwiaXNzIjoiRmluQXBwIiwiYXVkIjpbIkZpbkFwcCIsIkZpbkFwcCJdLCJleHAiOjE3ODQwMTY2NzgsIm5iZiI6MTc4NDAxMzA3NywiaWF0IjoxNzg0MDEzMDc3fQ.Du9K63dB6py2yTbb4Wz-ZY5jv9D7f5GDF8jvDiniuCw
+
+POST {{base_url}}/api/calculate-emi
+Content-Type: application/json
+Authorization: Bearer {{jwt}}
+
+{
+    "lender": "Asoa",
+    "number_of_installments": 60,
+    "principle_amount": 2000000,
+    "interest_rate": "14.05"
+}

@@ -4,7 +4,8 @@ services:
     build:
       context: ../src/backend
       dockerfile: ../../docker/Dockerfile
-      target: runtime        # <-- add this
+      target: debug
+    entrypoint: ["tail", "-f", "/dev/null"]
     volumes:
       - ../src/backend:/src
     ports:

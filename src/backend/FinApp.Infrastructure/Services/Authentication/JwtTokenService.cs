@@ -25,8 +25,9 @@ public class JwtTokenService(IOptions<JwtSetting> jwtSetting) : IJwtTokenService
             new Claim(JwtRegisteredClaimNames.Name, user.FirstName.ToString()),
             new Claim(JwtRegisteredClaimNames.Iss, _jwtSetting.Issuer.ToString()),
             new Claim(JwtRegisteredClaimNames.Aud, _jwtSetting.Audience.ToString()),
-            new Claim(JwtRegisteredClaimNames.Exp, _jwtSetting.Expire.ToString()),
-            new Claim(JwtRegisteredClaimNames.Iat, DateTime.UnixEpoch.ToString()),
+            new Claim(JwtRegisteredClaimNames.Exp, DateTimeOffset.UtcNow.AddMinutes(_jwtSetting.Expire).ToUnixTimeSeconds().ToString(), ClaimValueTypes.Integer64),
+            new Claim(JwtRegisteredClaimNames.Nbf, DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString(), ClaimValueTypes.Integer64),
+            new Claim(JwtRegisteredClaimNames.Iat, DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString(), ClaimValueTypes.Integer64),
         };
 
         var jwtSecurityToken = new JwtSecurityToken(   

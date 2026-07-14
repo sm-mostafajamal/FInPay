@@ -1,0 +1,32 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Docker Run & Debug FinApp.API",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "docker-compose-up-debug",
+      "program": "/app/FinApp.API.dll",
+      "cwd": "/app",
+      "pipeTransport": {
+        "pipeProgram": "docker",
+        "pipeArgs": ["exec", "-i", "finapp-api"],
+        "debuggerPath": "/vsdbg/vsdbg",
+        "pipeCwd": "${workspaceFolder}",
+        "quoteArgs": false
+      },
+      "sourceFileMap": {
+        "/src": "${workspaceFolder}/src/backend"
+      },
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "justMyCode": false,
+      "requireExactSource": false,
+      "symbolOptions": {
+        "searchPaths": [],
+        "searchMicrosoftSymbolServer": false
+      }
+    }
+  ]
+}

@@ -17,7 +17,7 @@
             var command = mapper.Map<RegisterCommand>(request);
             var result = await sender.Send(command, cancellationToken);
             
-            return HandleResult(result, mapper.Map<AuthResponse>); 
+            return ToActionResult(result, mapper.Map<AuthResponse>); 
         }
 
         [HttpPost(AuthRoutes.LoginRoute.Login, Name = AuthRoutes.LoginRoute.LoginName)]
@@ -26,6 +26,6 @@
             var command = mapper.Map<LoginCommand>(request);
             var result = await sender.Send(command, cancellationToken);
             
-            return HandleResult(result, mapper.Map<AuthResponse>); 
+            return ToActionResult(result, mapper.Map<AuthResponse>); 
         }
     }

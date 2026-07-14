@@ -41,18 +41,28 @@ public static class InfrastructureDependencyInjection
         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
-                   options.TokenValidationParameters = new TokenValidationParameters
-                   {
+                    options.IncludeErrorDetails = true;
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
                         ValidateIssuer = true,
                         ValidateAudience = true,
-                        ValidateIssuerSigningKey = true,
                         ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
 
-                        ValidAudience = jwtSetting?.Audience,
                         ValidIssuer = jwtSetting?.Issuer,
+                        ValidAudience = jwtSetting?.Audience,
                         IssuerSigningKey = new SymmetricSecurityKey(
                             Encoding.UTF8.GetBytes(jwtSetting.SecretKey))
-                   }; 
+                    };
+
+                    options.Events = new JwtBearerEvents
+                    {
+                        OnAuthenticationFailed = context =>
+                        {
+                            Console.WriteLine(context.Exception.ToString());
+                            return Task.CompletedTask;
+                        }
+                    };
                 });
 
         return services;
