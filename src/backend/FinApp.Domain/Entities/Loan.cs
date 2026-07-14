@@ -4,7 +4,7 @@ public class Loan
     public int UserId {get; set;}
     public string? UserName {get; set;} = string.Empty;
     public string? Lender {get; set;} = string.Empty;
-    public int TenorMonths {get; set;}
+    public int Installments {get; set;}
     public double InterestRate {get; set;}
     public decimal PrincipleAmount {get; set;}
     public decimal TotalInterest {get; set;}

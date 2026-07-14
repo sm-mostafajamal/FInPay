@@ -27,6 +27,28 @@
         "searchPaths": [],
         "searchMicrosoftSymbolServer": false
       }
+    },
+    {
+      "name": "Watch (Hot Reload)",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "dotnet-watch",
+      "program": "${workspaceFolder}/src/backend/FinApp.API/bin/Debug/net8.0/FinApp.API.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/src/backend/FinApp.API",
+      "stopAtEntry": false,
+      "serverReadyAction": {
+        "action": "openExternally",
+        "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+      },
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "ASPNETCORE_URLS": "http://localhost:8080",
+        "ConnectionStrings__DefaultConnection": "Host=localhost;Port=5432;Database=finapp;Username=postgres;Password=1234"
+      },
+      "sourceFileMap": {
+        "/Views": "${workspaceFolder}/src/backend/FinApp.API/Views"
+      }
     }
   ]
 }

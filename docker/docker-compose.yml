@@ -4,7 +4,7 @@ services:
     build:
       context: ../src/backend
       dockerfile: ../../docker/Dockerfile
-      target: runtime        # <-- add this
+      target: runtime       
     volumes:
       - ../src/backend:/src
     ports:

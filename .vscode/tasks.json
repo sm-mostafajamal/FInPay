@@ -6,6 +6,33 @@
       "type": "shell",
       "command": "docker compose -f docker/docker-compose.yml -f docker/docker-compose.debug.yml up -d --build",
       "problemMatcher": []
+    },
+
+    {
+      "label": "db-up",
+      "type": "shell",
+      "command": "docker compose -f docker/docker-compose.yml up -d db",
+      "problemMatcher": []
+    },
+    {
+      "label": "dotnet-watch",
+      "type": "shell",
+      "command": "dotnet watch run --project src/backend/FinApp.API/FinApp.API.csproj --urls http://localhost:8080",
+      "isBackground": true,
+      "dependsOn": "db-up",
+      "problemMatcher": [
+        {
+          "pattern": {
+            "regexp": "^.*$",
+            "message": 1
+          },
+          "background": {
+            "activeOnStart": true,
+            "beginsPattern": "dotnet watch",
+            "endsPattern": "Now listening on"
+          }
+        }
+      ]
     }
   ]
 }

@@ -9,7 +9,6 @@ Content-Type: application/json
 }  
 
 ### Register User
-
 POST {{base_url}}/api/register
 Content-Type: application/json
 

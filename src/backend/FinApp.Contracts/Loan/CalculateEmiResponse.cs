@@ -1,7 +1,7 @@
 namespace FinApp.Contracts.Loan;
 
 public record CalculateEmiResponse(
-    int number_of_installments,
+    int installments,
     string interest_rate,
     decimal monthly_installment,
     decimal principle_amount,

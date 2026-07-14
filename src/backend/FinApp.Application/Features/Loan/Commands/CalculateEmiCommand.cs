@@ -4,7 +4,7 @@ using FinApp.Application.Features.Loan.Dtos;
 
 public record CalculateEmiCommand(
     string Lender,
-    int TenorMonths,
+    int Installments,
     decimal PrincipleAmount,
     double InterestRate
 ) : IRequest<ErrorOr<CalculateEmiResponseDto>>;
@@ -15,7 +15,7 @@ public class CalculateEmiHandler : IRequestHandler<CalculateEmiCommand, ErrorOr<
     {
         
         
-        return new CalculateEmiResponseDto(request.TenorMonths, "14.05%", 5428, 100000, 50000, 150000);
+        return new CalculateEmiResponseDto(request.Installments, $"{request.InterestRate}%", 5428, request.PrincipleAmount, 50000, 150000);
 
     }
 }
