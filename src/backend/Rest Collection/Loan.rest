@@ -1,5 +1,5 @@
 @base_url = http://localhost:8080
-@jwt =eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZW1haWwiOiJzdXBlci5hZG1pbkBmaW5hcHAuY29tIiwibmFtZSI6InN1cGVyIiwiaXNzIjoiRmluQXBwIiwiYXVkIjpbIkZpbkFwcCIsIkZpbkFwcCJdLCJleHAiOjE3ODQwMjk3MTEsIm5iZiI6MTc4NDAyNjExMSwiaWF0IjoxNzg0MDI2MTExfQ.2w-lF4xDWu3KZnzU9c6zWpYwKdAo3egczUBukAJ98m8
+@jwt =eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZW1haWwiOiJzdXBlci5hZG1pbkBmaW5hcHAuY29tIiwibmFtZSI6InN1cGVyIiwiaXNzIjoiRmluQXBwIiwiYXVkIjpbIkZpbkFwcCIsIkZpbkFwcCJdLCJleHAiOjE3ODQwMzc1NzUsIm5iZiI6MTc4NDAzMzk3NSwiaWF0IjoxNzg0MDMzOTc1fQ.HA6BYA0vUFd25tx6vYABDy758MyCOhfqlDXK4LJYgJ8
 
 POST {{base_url}}/api/calculate-emi
 Content-Type: application/json
@@ -8,6 +8,6 @@ Authorization: Bearer {{jwt}}
 {
     "lender": "Bank Asia",
     "installments": 60,
-    "principle_amount": 2000000,
-    "interest_rate": "14.05"
+    "principal_amount": 250000,
+    "interest_rate": 14.05
 }

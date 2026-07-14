@@ -3,7 +3,6 @@ using FinApp.Contracts.Loan;
 using Mapster;
 using MapsterMapper;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FinApp.API.Controllers;
