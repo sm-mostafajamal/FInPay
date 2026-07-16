@@ -11,7 +11,7 @@
     [AllowAnonymous]
     public class AuthController(IMapper mapper, ISender sender) : ApiControllerBase
     {
-        [HttpPost(AuthRoutes.RegisterRoute.Register, Name = AuthRoutes.RegisterRoute.RegisterName)]
+        [HttpPost(AuthRoutes.RegisterRoute, Name = AuthRoutes.RegisterName)]
         public async Task<IActionResult> Register([FromBody] RegisterRequest request, CancellationToken cancellationToken)
         {
             var command = mapper.Map<RegisterCommand>(request);
@@ -20,7 +20,7 @@
             return ToActionResult(result, mapper.Map<AuthResponse>); 
         }
 
-        [HttpPost(AuthRoutes.LoginRoute.Login, Name = AuthRoutes.LoginRoute.LoginName)]
+        [HttpPost(AuthRoutes.LoginRoute, Name = AuthRoutes.LoginName)]
         public async Task<IActionResult> Login([FromBody] LoginRequest request, CancellationToken cancellationToken)
         {
             var command = mapper.Map<LoginCommand>(request);

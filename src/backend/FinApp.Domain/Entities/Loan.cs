@@ -1,8 +1,9 @@
+namespace FinApp.Domain.Entities;
+
 public class Loan
 {
-    public int Id {get; set;}
+    public int Id { get; }
     public int UserId {get; set;}
-    public string? UserName {get; set;} = string.Empty;
     public string? Lender {get; set;} = string.Empty;
     public int Installments {get; set;}
     public decimal InterestRate {get; set;}
@@ -13,6 +14,8 @@ public class Loan
     public DateTime ClosedAt {get; set;}
     public DateTime CreatedAt {get; set;}
     public DateTime UpdatedAt {get; set;}
+
+    public ICollection<Emi> Emis { get; private set; } = new List<Emi>();
 
     public Loan() {}
 
@@ -36,4 +39,14 @@ public class Loan
     {
         return InterestRate / 12m / 100m;
     }
+
+
+    //     private readonly List<Emi> _emis = new();
+
+    // public IReadOnlyCollection<Emi> Emis => _emis.AsReadOnly();
+
+    // public void AddEmi(Emi emi)
+    // {
+    //     _emis.Add(emi);
+    // }
 }

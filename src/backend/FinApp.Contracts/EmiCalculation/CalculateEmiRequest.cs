@@ -1,4 +1,4 @@
-namespace FinApp.Contracts.Loan;
+namespace FinApp.Contracts.EmiCalculation;
 
 public record CalculateEmiRequest(
     string lender,

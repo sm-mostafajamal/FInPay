@@ -1,6 +1,6 @@
-namespace FinApp.Application.Features.Loan.Dtos;
+namespace FinApp.Contracts.EmiCalculation;
 
-public record CalculateEmiResponseDto(
+public record CalculateEmiResponse(
     int installments,
     string interest_rate,
     decimal monthly_installment,

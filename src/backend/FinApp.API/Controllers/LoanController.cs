@@ -1,5 +1,6 @@
 using FinApp.API.Common.Routes;
-using FinApp.Contracts.Loan;
+using FinApp.Application.Features.EmiCalculation.Commands;
+using FinApp.Contracts.EmiCalculation;
 using Mapster;
 using MapsterMapper;
 using MediatR;
@@ -9,13 +10,23 @@ namespace FinApp.API.Controllers;
 
 public class LoanController(IMapper mapper, ISender sender) : ApiControllerBase
 {
-    [HttpPost(LoanRoutes.CalculateEmi, Name = LoanRoutes.CalculateEmiName)]
+    [HttpPost(LoanRoutes.CalculateEmiRoute, Name = LoanRoutes.CalculateEmiName)]
     public async Task<IActionResult> CalculateEmi([FromBody] CalculateEmiRequest request, CancellationToken cancellationToken)
     {
-        var command = mapper.Map<CalculateEmiCommand>(request);
+        // var command = mapper.Map<CalculateEmiCommand>(request);
+        var command = request.Adapt<CalculateEmiCommand>();
         var response = await sender.Send(command, cancellationToken);
 
         return ToActionResult(response, mapper.Map<CalculateEmiResponse>);
+    }
+
+    [HttpPost(LoanRoutes.EmiCalculationDetailRoute, Name = LoanRoutes.EmiCalculationDetailName)]
+    public async Task<IActionResult> EmiCalculationDetail([FromBody] CalculateEmiRequest request, CancellationToken cancellationToken)
+    {
+        var command = mapper.Map<EmiCalculationDetailCommand>(request);
+        var response = await sender.Send(command, cancellationToken); 
+        
+        return ToActionResult(response, mapper.Map<EmiCalculationDetailResponse>);
     }
     
 }
