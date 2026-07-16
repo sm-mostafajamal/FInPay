@@ -1,11 +1,16 @@
-namespace FinApp.Application.Features.EmiCalculation.Commands;
-
 using MediatR;
 using ErrorOr;
 using FinApp.Application.Features.EmiCalculation.Dtos;
 using FinApp.Domain.Entities;
+namespace FinApp.Application.Features.EmiCalculation.Commands;
 
 public record CalculateEmiCommand : EmiBaseCommand, IRequest<ErrorOr<CalculateEmiResponseDto>>;
+// public record CalculateEmiCommand(
+//     string Lender,
+//     int Installments,
+//     decimal PrincipalAmount,
+//     decimal InterestRate
+// ) : IRequest<ErrorOr<CalculateEmiResponseDto>>;
 
 public class CalculateEmiHandler : IRequestHandler<CalculateEmiCommand, ErrorOr<CalculateEmiResponseDto>>
 {

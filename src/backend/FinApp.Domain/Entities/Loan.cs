@@ -31,13 +31,13 @@ public class Loan
 
         return Math.Round(
             PrincipalAmount * monthlyRate * factor / (factor - 1),
-            2
+            6
         );
     }
 
     public decimal GetMonthlyInterestRate()
     {
-        return InterestRate / 12m / 100m;
+        return Math.Round(InterestRate / 12m / 100m, 6);
     }
 
 

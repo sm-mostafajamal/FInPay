@@ -13,8 +13,7 @@ public class LoanController(IMapper mapper, ISender sender) : ApiControllerBase
     [HttpPost(LoanRoutes.CalculateEmiRoute, Name = LoanRoutes.CalculateEmiName)]
     public async Task<IActionResult> CalculateEmi([FromBody] CalculateEmiRequest request, CancellationToken cancellationToken)
     {
-        // var command = mapper.Map<CalculateEmiCommand>(request);
-        var command = request.Adapt<CalculateEmiCommand>();
+        var command = mapper.Map<CalculateEmiCommand>(request);
         var response = await sender.Send(command, cancellationToken);
 
         return ToActionResult(response, mapper.Map<CalculateEmiResponse>);
@@ -25,8 +24,8 @@ public class LoanController(IMapper mapper, ISender sender) : ApiControllerBase
     {
         var command = mapper.Map<EmiCalculationDetailCommand>(request);
         var response = await sender.Send(command, cancellationToken); 
-        
-        return ToActionResult(response, mapper.Map<EmiCalculationDetailResponse>);
+
+        return ToActionResult(response, mapper.Map<List<EmiCalculationDetailResponse>>);
     }
     
 }
