@@ -7,7 +7,7 @@ public class Emi
     public int Month { get; set; }
     public decimal OpeningBalance { get; set; }
     public decimal MonthlyInterest { get; set; }
-    public decimal MonthlyPricipal { get; set; }
+    public decimal MonthlyPrincipal { get; set; }
     public decimal ClosingBalance { get; set; }
     public decimal Status { get; set; }
     public decimal PaidAt { get; set; }
@@ -17,26 +17,18 @@ public class Emi
 
     public Emi() {}
 
-    public decimal GetOpeningBalance()
+    public Emi(
+        int month, 
+        decimal openingBalance,
+        decimal monthlyInterest, 
+        decimal monthlyPrincipal, 
+        decimal closingBalance 
+    )
     {
-        return Month == 1 ? Loan.PrincipalAmount : GetClosingBalance();
-    }
-
-    public decimal GetClosingBalance()
-    {
-        return Loan.PrincipalAmount - GetMonthlyPrincipal();
-    }
-    public decimal GetMonthlyInterest()
-    {
-        return Loan.PrincipalAmount * Loan.GetMonthlyInterestRate();
-    }
-    public decimal GetMonthlyPrincipal()
-    {
-        return Loan.GetMonthlyEmi() - GetMonthlyInterest();
-    }
-    
-    public decimal GetRemainingTotalInterest()
-    {
-        return Loan.GetTotalInterest() - GetMonthlyInterest();
+        Month = month;
+        OpeningBalance = openingBalance;
+        MonthlyInterest = monthlyInterest;
+        MonthlyPrincipal = monthlyPrincipal;
+        ClosingBalance = closingBalance;
     }
 }

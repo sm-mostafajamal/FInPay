@@ -1,0 +1,50 @@
+@port = 8080
+@port = 5077
+@base_url = http://localhost:{{port}}/api
+@token = {{login.response.body.access_token}}
+
+# @name login
+POST {{base_url}}/login
+Content-Type: application/json
+
+{
+    "email" : "super.admin@finapp.com",
+    "password" : "Nop@ss1234"
+}  
+### Register User
+POST {{base_url}}/register
+Content-Type: application/json
+
+{
+    "first_name" : "Mostafa",
+    "last_name" : "Jamal",
+    "phone_number" : "+8801855555555",
+    "email" : "sm.mostafajamal@gmail.com",
+    "password" : "12345678",
+    "confirm_password" : "12345678"
+}   
+###
+
+POST {{base_url}}/calculate-emi
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "lender": "Bank Asia",
+    "installments": 2,
+    "principal_amount": 1000,
+    "interest_rate": 14.05
+}
+###
+
+POST {{base_url}}/emi-calculation-detail
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "lender": "Bank Asia",
+    "installments": 3,
+    "principal_amount": 1000,
+    "interest_rate": 5
+
+}

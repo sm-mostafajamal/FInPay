@@ -1,5 +1,6 @@
 using FinApp.API.Common.Routes;
 using FinApp.Application.Features.EmiCalculation.Commands;
+using FinApp.Application.Features.EmiCalculation.Dtos;
 using FinApp.Contracts.EmiCalculation;
 using Mapster;
 using MapsterMapper;
@@ -25,7 +26,7 @@ public class LoanController(IMapper mapper, ISender sender) : ApiControllerBase
         var command = mapper.Map<EmiCalculationDetailCommand>(request);
         var response = await sender.Send(command, cancellationToken); 
 
-        return ToActionResult(response, mapper.Map<List<EmiCalculationDetailResponse>>);
+        return ToActionResult(response, mapper.Map<List<EmiCalculationDetailResponseDto>>);
     }
     
 }

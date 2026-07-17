@@ -26,31 +26,27 @@ public class EmiCalculationDetailCommandHandler : IRequestHandler<EmiCalculation
             PrincipalAmount = command.PrincipalAmount,
         };
         
-        List<EmiCalculationDetailResponseDto> emiCalculationDetailList = new();
         var monthlyEmi = loan.GetMonthlyEmi();
-        var emi = new Emi();
-        emi.Loan = loan;
+        var totalInterest = loan.GetTotalInterest();
+        var emiList = loan.GenerateEmiSchedule();
 
-        for(var i = 1; i <= loan.Installments; i++)
+        List<EmiCalculationDetailResponseDto> emiCalculationDetails = new ();
+        foreach(var emi in emiList)
         {
-          
-            emi.Month = i;
-            emi.OpeningBalance = emi.GetOpeningBalance();
-            emi.MonthlyInterest = emi.GetMonthlyInterest();
-            emi.MonthlyPricipal = emi.GetMonthlyPrincipal();
-            emi.ClosingBalance = emi.GetClosingBalance();
-Console.WriteLine($"{emi.Month}, {emi.OpeningBalance}, {monthlyEmi}, {emi.MonthlyInterest},{emi.MonthlyPricipal}, {emi.ClosingBalance},");
+            totalInterest = totalInterest - emi.MonthlyInterest;
 
-            emiCalculationDetailList.Add(new EmiCalculationDetailResponseDto(
-                emi.Month,
-                emi.OpeningBalance,
-                monthlyEmi,
-                emi.MonthlyInterest,
-                emi.MonthlyPricipal,
-                emi.ClosingBalance
-                // emiT.GetRemainingTotalInterest()
-            ));
+            emiCalculationDetails.Add(
+                new EmiCalculationDetailResponseDto(
+                    emi.Month,
+                    emi.OpeningBalance,
+                    monthlyEmi,
+                    emi.MonthlyInterest,
+                    emi.MonthlyPrincipal,
+                    emi.ClosingBalance,
+                    totalInterest
+                ));
         }
-        return emiCalculationDetailList;
+
+        return emiCalculationDetails;
     }
 }

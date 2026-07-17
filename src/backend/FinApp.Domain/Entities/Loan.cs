@@ -15,7 +15,7 @@ public class Loan
     public DateTime CreatedAt {get; set;}
     public DateTime UpdatedAt {get; set;}
 
-    public ICollection<Emi> Emis { get; private set; } = new List<Emi>();
+    public IList<Emi> Emis { get; private set; } = new List<Emi>();
 
     public Loan() {}
 
@@ -29,24 +29,56 @@ public class Loan
         decimal monthlyRate = GetMonthlyInterestRate();
         decimal factor = (decimal)Math.Pow((double)(1 + monthlyRate), Installments);
 
-        return Math.Round(
-            PrincipalAmount * monthlyRate * factor / (factor - 1),
-            6
-        );
+        return Math.Round(PrincipalAmount * monthlyRate * factor / (factor - 1), 4);
     }
 
     public decimal GetMonthlyInterestRate()
     {
-        return Math.Round(InterestRate / 12m / 100m, 6);
+        return InterestRate / 12m / 100m;
     }
 
+    public void AddEmi(Emi emi)
+    {
+        Emis.Add(emi);
+    }
 
-    //     private readonly List<Emi> _emis = new();
+    public IList<Emi> GenerateEmiSchedule()
+    {
+        var balance = PrincipalAmount;
+        var interestRate = GetMonthlyInterestRate();
+        var monthlyEmi = GetMonthlyEmi();
 
-    // public IReadOnlyCollection<Emi> Emis => _emis.AsReadOnly();
+        for(var month = 1; month <= Installments; month++)
+        {
+            var openingBalance = balance;
+            var monthlyInterest = Math.Round(balance * interestRate, 4);
+            var monthlyPrincipal = 0m;
+            var closingBalance = 0m;
 
-    // public void AddEmi(Emi emi)
-    // {
-    //     _emis.Add(emi);
-    // }
+            if(month == Installments)
+            {
+                monthlyPrincipal = closingBalance;
+                closingBalance = 0m;
+            }
+            else
+            {
+                monthlyPrincipal = monthlyEmi - monthlyInterest;
+                closingBalance = balance - monthlyPrincipal;
+            } 
+            
+            AddEmi(new Emi(
+                month,
+                openingBalance,
+                monthlyInterest,
+                monthlyPrincipal,
+                closingBalance
+            ));
+
+            balance = closingBalance;
+        }
+
+        return Emis;
+
+    }
+
 }
