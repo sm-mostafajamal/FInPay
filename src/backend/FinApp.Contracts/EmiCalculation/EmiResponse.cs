@@ -1,6 +1,6 @@
-namespace FinApp.Application.Features.EmiCalculation.Dtos;
+namespace FinApp.Contracts.EmiCalculation;
 
-public record EmiCalculationDetailResponseDto(
+public record EmiResponse(
     int month,
     decimal opening_balance,
     decimal monthly_emi,

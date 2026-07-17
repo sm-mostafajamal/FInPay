@@ -43,7 +43,9 @@ public class EmiCalculationDetailCommandHandler : IRequestHandler<EmiCalculation
                     emi.MonthlyInterest,
                     emi.MonthlyPrincipal,
                     emi.ClosingBalance,
-                    totalInterest
+                    // After Approving loan
+                    totalInterest,
+                    emi.ClosingBalance + totalInterest
                 ));
         }
 

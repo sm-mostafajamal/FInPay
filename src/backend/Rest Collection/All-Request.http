@@ -31,12 +31,12 @@ Authorization: Bearer {{token}}
 
 {
     "lender": "Bank Asia",
-    "installments": 2,
-    "principal_amount": 1000,
-    "interest_rate": 14.05
+    "installments": 3,
+    "principal_amount": 2489,
+    "interest_rate": 4.77
 }
-###
 
+###
 POST {{base_url}}/emi-calculation-detail
 Content-Type: application/json
 Authorization: Bearer {{token}}
@@ -44,7 +44,6 @@ Authorization: Bearer {{token}}
 {
     "lender": "Bank Asia",
     "installments": 3,
-    "principal_amount": 1000,
-    "interest_rate": 5
-
+    "principal_amount": 2489,
+    "interest_rate": 4.77
 }

@@ -29,7 +29,8 @@ public class CalculateEmiHandler : IRequestHandler<CalculateEmiCommand, ErrorOr<
             $"{loan.InterestRate} %", 
             loan.GetMonthlyEmi(), 
             loan.PrincipalAmount, 
-            loan.GetTotalInterest()
+            loan.GetTotalInterest(),
+            loan.PrincipalAmount + loan.GetTotalInterest()
         );
 
     }

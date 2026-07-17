@@ -26,7 +26,7 @@ public class LoanController(IMapper mapper, ISender sender) : ApiControllerBase
         var command = mapper.Map<EmiCalculationDetailCommand>(request);
         var response = await sender.Send(command, cancellationToken); 
 
-        return ToActionResult(response, mapper.Map<List<EmiCalculationDetailResponseDto>>);
+        return ToActionResult(response, mapper.Map<List<EmiResponse>>);
     }
     
 }
