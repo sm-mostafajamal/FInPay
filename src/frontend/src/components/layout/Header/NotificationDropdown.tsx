@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { Dropdown } from "../ui/dropdown/Dropdown";
-import { DropdownItem } from "../ui/dropdown/DropdownItem";
 import { Link } from "react-router";
+import { Dropdown } from "../../ui/dropdown/Dropdown";
+import { DropdownItem } from "../../ui/dropdown/DropdownItem";
 
 export default function NotificationDropdown() {
   const [isOpen, setIsOpen] = useState(false);
@@ -77,7 +77,6 @@ export default function NotificationDropdown() {
           </button>
         </div>
         <ul className="flex flex-col h-auto overflow-y-auto custom-scrollbar">
-          {/* Example notification items */}
           <li>
             <DropdownItem
               onItemClick={closeDropdown}

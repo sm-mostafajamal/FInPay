@@ -1,8 +1,10 @@
-import { SidebarProvider, useSidebar } from "../context/SidebarContext";
 import { Outlet } from "react-router";
-import AppHeader from "./AppHeader";
-import Backdrop from "./Backdrop";
-import AppSidebar from "./AppSidebar";
+import AppHeader from "./Header/AppHeader";
+import AppSidebar from "./Sidebar/AppSidebar";
+import { ScrollToTop } from "../common/ScrollToTop";
+import { SidebarProvider } from "./Sidebar/provider/SidebarProvider";
+import Backdrop from "./Sidebar/components/Backdrop";
+import { useSidebar } from "./Sidebar/hooks/useSidebar";
 
 const LayoutContent: React.FC = () => {
   const { isExpanded, isHovered, isMobileOpen } = useSidebar();
@@ -30,6 +32,7 @@ const LayoutContent: React.FC = () => {
 const AppLayout: React.FC = () => {
   return (
     <SidebarProvider>
+      <ScrollToTop />
       <LayoutContent />
     </SidebarProvider>
   );
