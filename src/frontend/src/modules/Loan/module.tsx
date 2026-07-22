@@ -1,3 +1,4 @@
+import { constants } from "../../app/config/constants";
 import { PencilIcon } from "../../assets/icons";
 import { Module } from "../../components/layout/Sidebar/types";
 
@@ -7,7 +8,7 @@ export const loanModule : Module = {
     subModules: [
         { 
             name: "Emi Calculator", 
-            path: "calculate-emi", 
+            path: constants.Path.Loan.CalculateEmi, 
         }
     ]
 }
